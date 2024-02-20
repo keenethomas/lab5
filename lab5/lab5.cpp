@@ -7,36 +7,46 @@
 
 using namespace std;
 
+char translateChar(char c, const vector<char>& cipher) {
+    if (isupper(c)) {
+        return cipher[c - 'A'];
+    }
+
+    else if (islower(c)) {
+        char upperCaseLetter = toupper(c);
+        char upperCaseCode = cipher[upperCaseLetter - 'A'];
+        return tolower(upperCaseCode);
+    }
+
+    else {
+        return c;
+    }
+}
+
+string encodeString(const string& input, const vector<char>& cipher) {
+    string encodedString = "";
+    for (char c : input) {
+        encodedString += translateChar(c, cipher);
+    }
+
+    return encodedString;
+}
+
 int main()
 {
-    int score1 = 7;
-    int score2 = 8;
-    int score3 = 10;
-    int score4 = 9;
+    vector<char> cipher = { 'V','F','X','B','L','I','T','Z','J','R','P','H','D','K','N','O','W','S','G','U','Y','Q','M','A','C','E' };
 
-    vector<int> scores = { 7, 8, 10, 9, 3, 9 };
+    cout << "This is a test! It's made up of special characters, *spaces*, and some other weirdness..." << endl;
 
-    char character = 'H';
-    string message = "Hello";
-    cout << message << endl;
+    string inputString;
+    cout << "Encoded Message: ";
+    getline(cin, inputString);
 
-    cout << "Score for user 5 was: " << scores[5] << endl;
+    string encodedString = encodeString(inputString, cipher);
 
-    int size = scores.size();
-    cout << size << " playtesters!" << endl;
+    cout << "Translated Message: " << encodedString << endl;
 
-    for (int i = 0; i < scores.size(); i++)
-    {
-        int score = scores[i];
-        cout << "Playtester #" << (i + 1) << " scored " << score << endl;
-    }
-
-    for (int score : scores)
-    {
-        cout << "Score: " << score << endl;
-    }
-
-    std::cout << "Hello World!\n";
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
